@@ -1,0 +1,28 @@
+//edge class 
+import java.util.*;
+
+public class Edge {
+	
+	public Vertex a; 
+	public Vertex b; 
+	public int weight; 
+	
+	public Edge (Vertex a1, Vertex b1, int w){
+		a = a1; 
+		b = b1; 
+		weight = w; 
+	}
+	
+	public int getWeight (){
+		return weight; 
+	}
+	
+	public Vertex getFirstVertex (){
+		return a;
+	}
+	
+	public Vertex getSecondVertex (){
+		return b;
+	}
+	
+}
