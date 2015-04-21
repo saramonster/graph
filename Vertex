@@ -1,0 +1,86 @@
+// vertex class
+
+import java.util.*;
+
+public class Vertex {
+	
+	public String name; //name or "element"
+	public boolean startingNode;
+	public boolean known;  
+	public int distance; //minimum total distance	
+	public ArrayList<Edge> adjList;  //adjacent EDGES (not an adjacency list for the whole graph)
+	
+	public Vertex(){
+		name = "default name";
+		startingNode = false;
+		known = false;
+		distance = 0;
+		adjList = new ArrayList<Edge>();
+		
+	}
+	
+	public Vertex(String n, boolean s, boolean k, int d, ArrayList<Edge> a){
+		name = n;
+		startingNode = s;
+		known = k; 
+		distance = d; 
+		//path = p; 		
+		adjList = a;
+	}	
+	
+	public void printAdj (){
+		Iterator<Edge> it = adjList.iterator();
+		while (it.hasNext()){
+			Edge e = it.next();
+			Vertex v = e.getSecondVertex();
+			System.out.println(" "+v.getName()+" weight: "+e.getWeight());
+		}
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public boolean getStarting (){
+		return startingNode;
+	}
+	
+	public ArrayList<Edge> getAdj (){
+		return adjList;
+	}
+	
+	public void setAdj (ArrayList<Edge> e){
+		adjList = e;
+	}
+	
+	public int getDistance(){
+		return distance;
+	}
+	
+	public void setDistance(int d){
+		distance = d;
+	}
+	
+	public boolean isKnown(){
+		return known;
+	}
+	
+	public void setKnown(boolean b){
+		known = b;
+	}
+	
+	
+	
+	public void addEdge (Edge e){
+		Vertex a = e.getFirstVertex();
+		Vertex b = e.getSecondVertex();
+		if ((a.getName().equals(name)) || b.getName().equals(name)){
+			adjList.add(e);
+			//System.out.println("edge added to "+name);
+		}		
+		else {
+			System.out.println("Your node does not include the correct vertex for this list, unable to add edge to vertex edge list");
+		} 
+	}
+}
+	
