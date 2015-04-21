@@ -1,0 +1,77 @@
+// a weighted graph class
+
+import java.util.*;
+
+public class Graph {
+	
+	public ArrayList<Vertex> adjList; //adjacency list	
+	public ArrayList<Edge>  edgList;  
+	
+	public Graph (){
+		//default constructor
+		adjList = new ArrayList<Vertex>();
+		edgList = new ArrayList<Edge>();
+	}
+	
+	public Graph (ArrayList<Vertex> a, ArrayList<Edge> e){
+		adjList = a;
+		edgList = e;
+	}
+	
+	public void addVertex (Vertex a){
+		adjList.add(a);	
+		edgList.addAll(a.getAdj());
+	}
+	
+	public void addEdge (Vertex a, Vertex b, int i){
+		Edge e = new Edge(a, b, i);
+		edgList.add(e);
+	}	
+	
+	
+	public void printGraph(){
+		Iterator<Vertex> it = adjList.iterator();
+		while (it.hasNext()){
+			Vertex v = it.next();
+			System.out.println("Vertex "+v.getName()+" adjacent to: ");
+			v.printAdj();
+		}
+	}
+	
+	public void shortestPath (){
+		for (int i = 0; i< adjList.size(); i++){
+			Vertex current = adjList.get(i);
+			if ((current.getDistance() != 0) || (current.getStarting())){
+				current.setKnown(true);
+			}				
+			
+			ArrayList<Edge> e = current.getAdj();
+			Iterator<Edge> et = e.iterator();
+			while (et.hasNext()){
+				Edge eg = et.next();
+				Vertex v1 = eg.getFirstVertex();
+				Vertex v = eg.getSecondVertex();
+				int possibleDistance = current.getDistance() + eg.getWeight();
+				if ((v1.isKnown())){
+					if ((!v.getStarting()) && (v.getDistance() == 0)){
+						v.setDistance(possibleDistance);
+						
+					}
+					if (v.getDistance() > possibleDistance){
+						v.setDistance(possibleDistance);
+						
+					}
+				
+			}			
+						
+			adjList.set(i, current);			
+			}
+		}
+
+		for (int i = 0; i <adjList.size(); i++){
+			Vertex current = adjList.get(i);
+			System.out.println("Shortest path to "+current.getName()+" is: "+current.getDistance());			
+		}
+		
+	}	
+}
